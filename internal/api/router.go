@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/arthurweinmann/apinator/internal/api/routes"
+	"github.com/arthurweinmann/apinator/internal/config"
 	"github.com/arthurweinmann/apinator/internal/utils"
 	"github.com/arthurweinmann/go-https-hug/pkg/acme"
 )
@@ -22,6 +23,10 @@ type Router struct {
 }
 
 func (s *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if config.MDP == "" {
+		panic("")
+	}
+
 	stripedhost := utils.StripPort(r.Host)
 
 	if strings.HasPrefix(r.URL.Path, acme.ACME_CHALLENGE_URL_PREFIX) && len(r.URL.Path) > len(acme.ACME_CHALLENGE_URL_PREFIX) {
@@ -39,6 +44,10 @@ func (s *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if stripedhost == s.apidomain {
+		if r.Header.Get("X-APINATOR-AUTH") != config.MDP {
+			return
+		}
+
 		s.api(w, r)
 		return
 	}
@@ -72,6 +81,12 @@ func (s *Router) dashboard(w http.ResponseWriter, r *http.Request) {
 	}
 
 	upath := r.URL.Path
+
+	if r.Header.Get("X-APINATOR-AUTH") != config.MDP {
+		//TODO: serve connection page
+		return
+	}
+
 	if !strings.HasPrefix(upath, "/") {
 		upath = "/" + upath
 		r.URL.Path = upath
