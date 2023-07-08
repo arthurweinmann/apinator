@@ -1,2 +1,6 @@
 function GlobalInit() {
 }
+
+function LoginInit() {
+    
+}

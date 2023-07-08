@@ -48,7 +48,7 @@ build-apinator: $(BUILDDIR)
 build-gpt-engineer: $(BUILDDIR)
 	rm -rf $(BUILDDIR)/gpt-engineer && \
 	cd $(BUILDDIR) && git clone https://github.com/arthurweinmann/gpt-engineer.git && \
-	cd gpt-engineer && pip install -e . && cd $(BUILDDIR) && rm -rf $(BUILDDIR)/gpt-engineer; \
+	cd gpt-engineer && pip install build && python -m build && ls -alh dist/ && pip install -e . && cd $(BUILDDIR) && rm -rf $(BUILDDIR)/gpt-engineer; \
     EXECUTABLE_PATH=$$(which gpt-engineer); \
     mv $$EXECUTABLE_PATH $(BUILDDIR); \
 

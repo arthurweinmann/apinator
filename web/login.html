@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang=en>
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+        APINATOR
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+
+</head>
+
+<body>
+    <div class="loginform">
+        <input type="password" placeholder="Enter Password" />
+        <button id="login">Signin</button>
+    </div>
+
+
+    <!-- START SCRIPTS IMPORT -->
+    <script src="/config.js"></script>
+
+    <script src="/js/lib/tinyveil.js"></script>
+
+    <script src="/js/createapi.js"></script>
+    <script src="/js/error.js"></script>
+
+    <script src="/js/index.js"></script>
+    <!-- END SCRIPTS IMPORT -->
+
+    <script>
+        (function () {
+            LoginInit();
+        })()
+    </script>
+</body>
+
+</html>
