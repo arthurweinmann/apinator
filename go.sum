@@ -66,6 +66,8 @@ github.com/arthurweinmann/go-https-hug v0.0.0-20230707221203-f690d5adff31 h1:jLW
 github.com/arthurweinmann/go-https-hug v0.0.0-20230707221203-f690d5adff31/go.mod h1:t24L9eo4EPN8Da3khukUornDhiJzwvRPH717/qjAuB8=
 github.com/arthurweinmann/go-https-hug v0.0.0-20230708180933-86c79c17c7e8 h1:0TsllgbLzyv9oG4DyHiLQCUlEdQCX7c4tsH1FUiu8ZE=
 github.com/arthurweinmann/go-https-hug v0.0.0-20230708180933-86c79c17c7e8/go.mod h1:t24L9eo4EPN8Da3khukUornDhiJzwvRPH717/qjAuB8=
+github.com/arthurweinmann/go-https-hug v0.0.0-20230708182227-5e9dcb17eef2 h1:8QG56fbe0ao9BfXDSthbB1NLzcbIJ8/TsBYCLqqyK9Q=
+github.com/arthurweinmann/go-https-hug v0.0.0-20230708182227-5e9dcb17eef2/go.mod h1:t24L9eo4EPN8Da3khukUornDhiJzwvRPH717/qjAuB8=
 github.com/aws/aws-sdk-go v1.44.114 h1:plIkWc/RsHr3DXBj4MEw9sEW4CcL/e2ryokc+CKyq1I=
 github.com/aws/aws-sdk-go v1.44.114/go.mod h1:y4AeaBuwd2Lk+GepC1E9v0qOiTws0MIWAX4oIKwKHZo=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
