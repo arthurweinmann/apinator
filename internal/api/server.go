@@ -11,6 +11,7 @@ import (
 	"github.com/arthurweinmann/go-https-hug/pkg/storage/stores/filesystem"
 )
 
+// StartAPI is blocking
 func StartAPI() error {
 	err := os.Remove(filepath.Join(config.HOME, "web/config.js"))
 	if err != nil {
@@ -61,8 +62,5 @@ var config = %s`, string(b))), 0644)
 		return err
 	}
 
-	// TODO: handle potential listening error
-	go acme.Serve(":443", r, filepath.Join(config.HOME, "https.log"))
-
-	return nil
+	return acme.Serve(":443", r, filepath.Join(config.HOME, "https.log"))
 }
