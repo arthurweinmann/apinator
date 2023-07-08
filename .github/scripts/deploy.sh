@@ -1,5 +1,8 @@
 #!/bin/bash
 
+pwd
+ls -alh
+
 mkdir -p ~/.ssh
 
 echo "$DEPLOY_SSH_KEY" > ~/.ssh/id_rsa
@@ -8,7 +11,7 @@ chmod 600 ~/.ssh/id_rsa
 
 tmp=$(pwd)
 make build
-cd tmp 
+cd $tmp 
 
 pwd
 ls -alh
