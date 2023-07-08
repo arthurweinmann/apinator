@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang=en>
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+        APINATOR
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="brand">APInator</div>
+        <!-- <div class="actions">
+            buttoms for signin and signup
+        </div> -->
+    </div>
+
+    <div class="section1">
+        <div class="header-container">
+            <div class="mascot">
+                <img src="/assets/mascot.svg" />
+            </div>
+
+            <div class="header">
+                <h1><span class="header1">Hello, I am</span><br><span class="header2">APInator</span></h1>
+                <h2>Answer a few questions to help me build your API.</h2>
+            </div>
+        </div>
+
+        <div class="question-padder">
+            <div class="question-container">
+                <div class="question">
+                </div>
+                <div class="question-action">
+                    <!--- buttons, textarea, .. -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section2">
+        <span>Live Preview</span>
+        <div class="livecodelogs-container">
+            <div class="livecode">
+            </div>
+            <div class="livelogs">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- START SCRIPTS IMPORT -->
+    <script src="/config.js"></script>
+
+    <script src="/js/lib/tinyveil.js"></script>
+
+    <script src="/js/createapi.js"></script>
+    <script src="/js/error.js"></script>
+
+    <script src="/js/index.js"></script>
+    <!-- END SCRIPTS IMPORT -->
+
+    <script>
+        (function () {
+            GlobalInit();
+        })()
+    </script>
+</body>
+
+</html>
