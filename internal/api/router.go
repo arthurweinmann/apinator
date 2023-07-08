@@ -82,14 +82,13 @@ func (s *Router) dashboard(w http.ResponseWriter, r *http.Request) {
 
 	upath := r.URL.Path
 
-	if r.Header.Get("X-APINATOR-AUTH") != config.MDP {
-		//TODO: serve connection page
-		return
-	}
-
 	if !strings.HasPrefix(upath, "/") {
 		upath = "/" + upath
 		r.URL.Path = upath
+	}
+
+	if r.Header.Get("X-APINATOR-AUTH") != config.MDP && upath == "/" {
+		upath = "/login.html"
 	}
 
 	const indexPage = "index.html"
