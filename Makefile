@@ -37,25 +37,24 @@ build: check-generic-dep build-web build-gpt-engineer build-apinator
 
 .PHONY: build-apinator
 build-apinator: $(BUILDDIR)
-	@rm -f $(BUILDDIR)/apinator && \
+	rm -f $(BUILDDIR)/apinator && \
 	cd $(CURDIR)/cmd/apinator && \
 	GOPROXY=direct go get -u github.com/arthurweinmann/go-https-hug@latest && \
 	go mod tidy && \
-	go build && \
+	go build -ldflags="-X 'github.com/arthurweinmann/apinator/internal/config.MDP=${MDP}'" && \
 	mv apinator $(BUILDDIR)/
 
 .PHONY: build-gpt-engineer
 build-gpt-engineer: $(BUILDDIR)
-	@rm -rf $(BUILDDIR)/gpt-engineer && \
+	rm -rf $(BUILDDIR)/gpt-engineer && \
 	cd $(BUILDDIR) && git clone https://github.com/arthurweinmann/gpt-engineer.git && \
 	cd gpt-engineer && pip install -e . && cd $(BUILDDIR) && rm -rf $(BUILDDIR)/gpt-engineer; \
-	rm -rf $(BUILDDIR)/gpt-engineer; \
     EXECUTABLE_PATH=$$(which gpt-engineer); \
     mv $$EXECUTABLE_PATH $(BUILDDIR); \
 
 .PHONY:build-web
 build-web: $(BUILDDIR)
-	@rm -rf $(BUILDDIR)/web && mkdir -p $(BUILDDIR)/web && cp -r $(CURDIR)/web/* $(BUILDDIR)/web
+	rm -rf $(BUILDDIR)/web && mkdir -p $(BUILDDIR)/web && cp -r $(CURDIR)/web/* $(BUILDDIR)/web
 
 PHONY:check-generic-dep
 check-generic-dep:

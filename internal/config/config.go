@@ -8,3 +8,5 @@ var PublicWebsiteDomain string
 var CertificateContactEmail string
 
 var OpenAIKey string
+
+var MDP string

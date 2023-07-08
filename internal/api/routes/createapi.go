@@ -87,7 +87,7 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cmd := exec.Command(filepath.Join(config.HOME, "gptengineer"), filepath.Join(config.HOME, "projects", projref))
+	cmd := exec.Command(filepath.Join(config.HOME, "gpt-engineer"), filepath.Join(config.HOME, "projects", projref))
 	cmd.Dir = filepath.Join(config.HOME, "projects", projref)
 	cmd.Env = append(os.Environ(), "OPENAI_API_KEY="+config.OpenAIKey)
 	stdout, err := cmd.StdoutPipe()
