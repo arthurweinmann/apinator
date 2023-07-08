@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"os/exec"
@@ -14,6 +15,19 @@ import (
 	"github.com/arthurweinmann/apinator/internal/utils"
 	"github.com/gorilla/websocket"
 )
+
+var gptengineerpath string
+
+func init() {
+	out, err := exec.Command("which", "gpt-engineer").CombinedOutput()
+	if err != nil {
+		panic(fmt.Errorf("We could not find gpt-engineer: %v %v", err, string(out)))
+	}
+	if string(out) == "" {
+		panic(fmt.Errorf("We could not find gpt-engineer"))
+	}
+	gptengineerpath = string(out)
+}
 
 var upgrader = websocket.Upgrader{
 	HandshakeTimeout: 5 * time.Second,
@@ -87,7 +101,7 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cmd := exec.Command(filepath.Join(config.HOME, "gpt-engineer"), filepath.Join(config.HOME, "projects", projref))
+	cmd := exec.Command(gptengineerpath, filepath.Join(config.HOME, "projects", projref))
 	cmd.Dir = filepath.Join(config.HOME, "projects", projref)
 	cmd.Env = append(os.Environ(), "OPENAI_API_KEY="+config.OpenAIKey)
 	stdout, err := cmd.StdoutPipe()

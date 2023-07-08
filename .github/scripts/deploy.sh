@@ -11,3 +11,5 @@ make build
 cd $tmp
 
 rsync -av --delete -e "ssh -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa" ./build root@78.47.67.22:/apinator
+
+ssh -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@78.47.67.22 "/bin/bash -c 'python3 -m pip install /apinator/build/gpt_engineer-0.0.7-py3-none-any.whl'"

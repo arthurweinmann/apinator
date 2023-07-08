@@ -45,6 +45,7 @@ func (s *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	if stripedhost == s.apidomain {
 		if r.Header.Get("X-APINATOR-AUTH") != config.MDP {
+			utils.SendError(w, "you are not authorized", "forbidden", 403)
 			return
 		}
 
@@ -85,10 +86,6 @@ func (s *Router) dashboard(w http.ResponseWriter, r *http.Request) {
 	if !strings.HasPrefix(upath, "/") {
 		upath = "/" + upath
 		r.URL.Path = upath
-	}
-
-	if r.Header.Get("X-APINATOR-AUTH") != config.MDP && upath == "/" {
-		upath = "/login.html"
 	}
 
 	const indexPage = "index.html"
