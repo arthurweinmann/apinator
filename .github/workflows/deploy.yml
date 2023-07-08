@@ -20,6 +20,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MDP: ${{ secrets.MDP }}
-          DEPLOY_SSH_KEY: ${{ DEPLOY_SSH_KEY }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
           tag: ${{ github.ref_name }}
         shell: bash
