@@ -1,8 +1,5 @@
 #!/bin/bash
 
-pwd
-ls -alh
-
 mkdir -p ~/.ssh
 
 echo "$DEPLOY_SSH_KEY" > ~/.ssh/id_rsa

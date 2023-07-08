@@ -45,7 +45,7 @@ build-apinator: $(BUILDDIR)
 	mv apinator $(BUILDDIR)/
 
 .PHONY: build-gpt-engineer
-build-gpt-engineer: $(BUILDDIR):
+build-gpt-engineer: $(BUILDDIR)
 	@rm -rf $(BUILDDIR)/gpt-engineer && \
 	cd $(BUILDDIR) && git clone https://github.com/arthurweinmann/gpt-engineer.git && \
 	cd gpt-engineer && pip install -e . && cd $(BUILDDIR) && rm -rf $(BUILDDIR)/gpt-engineer && \
