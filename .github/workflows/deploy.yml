@@ -1,23 +1,25 @@
-# name: APINATOR Deployment
+name: APINATOR Deployment
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
 
-# permissions:
-#   contents: write
+permissions:
+  contents: write
 
-# jobs:
-#   release:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Check out repository code
-#         uses: actions/checkout@v3
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
 
-#       - name: Run deploy script
-#         run: ./.github/scripts/deploy.sh
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           tag: ${{ github.ref_name }}
-#         shell: bash
+      - name: Run deploy script
+        run: ./.github/scripts/deploy.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MDP: ${{ secrets.MDP }}
+          DEPLOY_SSH_KEY: ${{ DEPLOY_SSH_KEY }}
+          tag: ${{ github.ref_name }}
+        shell: bash
