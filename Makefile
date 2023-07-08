@@ -49,7 +49,7 @@ build-gpt-engineer: $(BUILDDIR)
 	@rm -rf $(BUILDDIR)/gpt-engineer && \
 	cd $(BUILDDIR) && git clone https://github.com/arthurweinmann/gpt-engineer.git && \
 	cd gpt-engineer && pip install -e . && cd $(BUILDDIR) && rm -rf $(BUILDDIR)/gpt-engineer && \
-	location=$(which gpt-engineer) && ls ${location} && mv -f ${location} $(BUILDDIR)/gptengineer && rm -rf $(BUILDDIR)/gpt-engineer
+	mv -f $(which gpt-engineer) $(BUILDDIR)/gptengineer && rm -rf $(BUILDDIR)/gpt-engineer
 
 .PHONY:build-web
 build-web: $(BUILDDIR)
