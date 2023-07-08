@@ -35,11 +35,11 @@ all: build
 .PHONY: build
 build: check-generic-dep build-web build-gpt-engineer build-apinator
 
+# GOPROXY=direct go get -u github.com/arthurweinmann/go-https-hug@latest &&
 .PHONY: build-apinator
 build-apinator: $(BUILDDIR)
 	rm -f $(BUILDDIR)/apinator && \
 	cd $(CURDIR)/cmd/apinator && \
-	GOPROXY=direct go get -u github.com/arthurweinmann/go-https-hug@latest && \
 	go mod tidy && \
 	go build -ldflags="-X 'github.com/arthurweinmann/apinator/internal/config.MDP=${MDP}'" && \
 	mv apinator $(BUILDDIR)/
