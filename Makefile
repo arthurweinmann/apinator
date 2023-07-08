@@ -52,8 +52,8 @@ build-gpt-engineer: $(BUILDDIR)
 	location=$(which gpt-engineer) && mv -f ${location} $(BUILDDIR)/gptengineer
 
 .PHONY:build-web
-build-web:
-	@rm -rf $(BUILDDIR)/web && mkdir $(BUILDDIR)/web && cp -r $(CURDIR)/web/* $(BUILDDIR)/web
+build-web: $(BUILDDIR)
+	@rm -rf $(BUILDDIR)/web && mkdir -p $(BUILDDIR)/web && cp -r $(CURDIR)/web/* $(BUILDDIR)/web
 
 PHONY:check-generic-dep
 check-generic-dep:
