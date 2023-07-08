@@ -1,12 +1,15 @@
 function GlobalInit() {
     if (localStorage.getItem("X-APINATOR-AUTH") == "") {
-        window.location.href = "/login.html"
+        document.querySelector(".signinpopup").style.display = "block";
+        logininit();
+    } else {
+
     }
 }
 
-function LoginInit() {
-    var button = document.getElementById("login");
-    var input = document.getElementById("mdp");
+function logininit() {
+    var button = document.getElementById("signinButton");
+    var input = document.getElementById("signinValue");
 
     button.addEventListener("click", function(e) {
         e.preventDefault();
@@ -15,6 +18,6 @@ function LoginInit() {
         var value = input.value;
         localStorage.setItem("X-APINATOR-AUTH", value);
 
-        window.location.href = "/"
+        document.querySelector(".signinpopup").style.display = "none";
     });
 }

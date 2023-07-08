@@ -8,9 +8,9 @@ function CreateAPI(seedprompt, cb) {
 
     let ws;
     if (config.ishttps) {
-        ws = new WebSocket('wss://' + config.apidomain + "/createapi");
+        ws = new WebSocket('wss://' + config.apidomain + "/createapi", localStorage.getItem("X-APINATOR-AUTH"));
     } else {
-        ws = new WebSocket('ws://' + config.apidomain + "/createapi");
+        ws = new WebSocket('ws://' + config.apidomain + "/createapi", localStorage.getItem("X-APINATOR-AUTH"));
     }
 
     let projectReference;
@@ -30,8 +30,19 @@ function CreateAPI(seedprompt, cb) {
         ws.send(JSON.stringify({ ack: true, response: "" }));
     };
 
-    ws.onopen = () => {
+    const reasoning = (message) => {
+        console.log(`Reasoning ${message}`);
+        // raw output of llm, it will contain the generated files as
+        /*
+        FILENAME
+        ```LANG
+        CODE
+        ```
+        */
+    };
 
+    ws.onopen = () => {
+        console.log("connection open");
     };
 
     ws.onerror = (event) => {
@@ -56,7 +67,7 @@ function CreateAPI(seedprompt, cb) {
                 tempText = tempText.replace(tempText.substring(startIndex, endIndex + 12), '');
             }
 
-            if ((startIndex = tempText.indexOf('[[[.WARNING]]]')) !== -1 && (endIndex = tempText.indexOf('[[[.WARNING]]]')) !== -1) {
+            if ((startIndex = tempText.indexOf('[[[.WARNING]]]')) !== -1 && (endIndex = tempText.indexOf('[[[.ENDWARNING]]]')) !== -1) {
                 warning(tempText.substring(startIndex + 13, endIndex));
                 tempText = tempText.replace(tempText.substring(startIndex, endIndex + 13), '');
             }
@@ -65,6 +76,11 @@ function CreateAPI(seedprompt, cb) {
                 sendmessageack = false
                 ask(tempText.substring(startIndex + 9, endIndex));
                 tempText = tempText.replace(tempText.substring(startIndex, endIndex + 10), '');
+            }
+            
+            if ((startIndex = tempText.indexOf('[[[.REASONING]]]')) !== -1 && (endIndex = tempText.indexOf('[[[.ENDREASONING]]]')) !== -1) {
+                reasoning(tempText.substring(startIndex + 13, endIndex));
+                tempText = tempText.replace(tempText.substring(startIndex, endIndex + 13), '');
             }
 
             if (sendmessageack) {
