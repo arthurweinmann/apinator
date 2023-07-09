@@ -52,7 +52,10 @@ build-gpt-engineer: $(BUILDDIR)
 
 .PHONY:build-web
 build-web: $(BUILDDIR)
-	rm -rf $(BUILDDIR)/web && mkdir -p $(BUILDDIR)/web && cp -r $(CURDIR)/web/* $(BUILDDIR)/web
+	rm -rf $(BUILDDIR)/web && rm -f $(CURDIR)/web/js/lib/boxedmonaco.js && \
+	cd $(CURDIR)/web/js/lib/ && wget https://github.com/arthurweinmann/boxed-monaco-editor/releases/download/3ccc1ac/boxedmonaco.js && \
+	cd $(CURDIR) && \
+	mkdir -p $(BUILDDIR)/web && cp -r $(CURDIR)/web/* $(BUILDDIR)/web
 
 PHONY:check-generic-dep
 check-generic-dep:
