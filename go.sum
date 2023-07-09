@@ -68,6 +68,10 @@ github.com/arthurweinmann/go-https-hug v0.0.0-20230708180933-86c79c17c7e8 h1:0Ts
 github.com/arthurweinmann/go-https-hug v0.0.0-20230708180933-86c79c17c7e8/go.mod h1:t24L9eo4EPN8Da3khukUornDhiJzwvRPH717/qjAuB8=
 github.com/arthurweinmann/go-https-hug v0.0.0-20230708182227-5e9dcb17eef2 h1:8QG56fbe0ao9BfXDSthbB1NLzcbIJ8/TsBYCLqqyK9Q=
 github.com/arthurweinmann/go-https-hug v0.0.0-20230708182227-5e9dcb17eef2/go.mod h1:t24L9eo4EPN8Da3khukUornDhiJzwvRPH717/qjAuB8=
+github.com/arthurweinmann/go-https-hug v0.0.0-20230709164918-602ddaf18978 h1:LhYGL8FERmxlF38RGVNKAxCfmKfmEkig9UOeB/IDXMI=
+github.com/arthurweinmann/go-https-hug v0.0.0-20230709164918-602ddaf18978/go.mod h1:t24L9eo4EPN8Da3khukUornDhiJzwvRPH717/qjAuB8=
+github.com/arthurweinmann/go-https-hug v0.0.0-20230709165203-2e255eccd315 h1:S5+IxGQsvf8U6xTMf6y1gGpKwwviABxvkwMQXXGLgsk=
+github.com/arthurweinmann/go-https-hug v0.0.0-20230709165203-2e255eccd315/go.mod h1:t24L9eo4EPN8Da3khukUornDhiJzwvRPH717/qjAuB8=
 github.com/aws/aws-sdk-go v1.44.114 h1:plIkWc/RsHr3DXBj4MEw9sEW4CcL/e2ryokc+CKyq1I=
 github.com/aws/aws-sdk-go v1.44.114/go.mod h1:y4AeaBuwd2Lk+GepC1E9v0qOiTws0MIWAX4oIKwKHZo=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=

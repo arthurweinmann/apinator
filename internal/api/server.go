@@ -57,6 +57,9 @@ var config = %s`, string(b))), 0644)
 			config.PublicWebsiteDomain: {},
 		},
 		DNSProvider: nil,
+		Bootstrap:   true,
+		LogLevel:    acme.DEBUG,
+		Logger:      os.Stdout,
 	})
 	if err != nil {
 		return err
