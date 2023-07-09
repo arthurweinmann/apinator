@@ -41,6 +41,8 @@ build-apinator: $(BUILDDIR)
 	rm -f $(BUILDDIR)/apinator && \
 	cd $(CURDIR)/cmd/apinator && \
 	go mod tidy && \
+	GOPROXY=direct go get -u github.com/arthurweinmann/go-https-hug@latest && \
+	go mod tidy && \
 	go build -ldflags="-X 'github.com/arthurweinmann/apinator/internal/config.MDP=${MDP}'" && \
 	mv apinator $(BUILDDIR)/
 
