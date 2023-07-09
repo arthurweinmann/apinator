@@ -65,5 +65,5 @@ var config = %s`, string(b))), 0644)
 		return err
 	}
 
-	return acme.Serve(":443", r, filepath.Join(config.HOME, "https.log"))
+	return acme.ServeHTTPS(":443", r, filepath.Join(config.HOME, "https.log"))
 }
