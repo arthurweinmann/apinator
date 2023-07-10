@@ -3,7 +3,7 @@ module github.com/arthurweinmann/apinator
 go 1.20
 
 require (
-	github.com/arthurweinmann/go-https-hug v0.0.0-20230710151118-9a117d35d86e
+	github.com/arthurweinmann/go-https-hug v0.0.0-20230710154643-8137d701ec08
 	github.com/gorilla/websocket v1.4.2
 	github.com/rs/xid v1.5.0
 )
