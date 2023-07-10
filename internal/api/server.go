@@ -53,14 +53,21 @@ var config = %s`, string(b))), 0644)
 		CertificateContactEmail: config.CertificateContactEmail,
 		Store:                   store,
 		AuthorizedDomains: map[string]map[string]bool{
-			config.APIDomain:           {},
-			config.PublicWebsiteDomain: {},
+			config.PublicWebsiteDomain: {
+				config.APIDomain: true,
+			},
 		},
 		DNSProvider: nil,
-		Bootstrap:   true,
 		LogLevel:    acme.DEBUG,
 		Logger:      os.Stdout,
 	})
+	if err != nil {
+		return err
+	}
+
+	go acme.ServeHTTP(nil, true)
+
+	err = acme.ToggleCertificate([]string{config.PublicWebsiteDomain, config.APIDomain})
 	if err != nil {
 		return err
 	}
