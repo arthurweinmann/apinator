@@ -12,7 +12,7 @@ import (
 func main() {
     fmt.Println("Hello, world")
 }`,
-            language: 'golang'
+            language: 'go'
         });
     }
 }
