@@ -2,6 +2,7 @@ html,
 body {
     width: 100%;
     height: 100%;
+    font-family: Open Sans, Roboto, sans-serif;
 }
 
 .signinpopup {
@@ -11,7 +12,7 @@ body {
     bottom: 0px;
     right: 0px;
     left: 0px;
-    background-color: rgb(40, 40, 40);
+    background-color: black;
     opacity: 0.4;
 }
 
@@ -30,7 +31,7 @@ body {
     width: 100%;
     height: 70px;
     line-height: 70px;
-    background-color: rgb(40, 40, 40);
+    background-color: black;
     padding-left: 25px;
     padding-right: 25px;
     box-sizing: border-box;
@@ -38,15 +39,17 @@ body {
 
 .topbar .brand {
     color: white;
-    font-size: 24px;
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .section1 {
     position: relative;
     display: inline-block;
     width: 100%;
+    text-align: center;
 
-    background: linear-gradient(to bottom, rgb(40, 40, 40), rgb(40, 40, 40) 80%, rgb(43, 0, 255) 80%);
+    background: linear-gradient(to bottom, black, black 80%, #013cd4 80%);
 }
 
 .header-container {
@@ -56,6 +59,7 @@ body {
     width: 100%;
     padding-left: 25px;
     padding-right: 25px;
+    padding-bottom: 50px;
     height: auto;
     box-sizing: border-box;
 }
@@ -75,22 +79,24 @@ body {
 
 .header-container .header h1 {
     color: white;
-    font-size: 32px;
+    font-size: 2em;
     font-weight: bold;
+    line-height: 1.2;
 }
 
 .header-container .header2 {
-    background: #121FCF;
-    background: -webkit-linear-gradient(to right, #121FCF 0%, #FFFFFF 100%);
-    background: -moz-linear-gradient(to right, #121FCF 0%, #FFFFFF 100%);
-    background: linear-gradient(to right, #121FCF 0%, #FFFFFF 100%);
+    background: #013cd4;
+    background: -webkit-linear-gradient(to right, #013cd4 0%, #FFFFFF 100%);
+    background: -moz-linear-gradient(to right, #013cd4 0%, #FFFFFF 100%);
+    background: linear-gradient(to right, #013cd4 0%, #FFFFFF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .header-container .header h2 {
     color: white;
-    font-size: 24px;
+    font-size: 1.125em;
+    line-height: 1.5;
 }
 
 .question-padder {
@@ -102,6 +108,9 @@ body {
     width: 100%;
     box-sizing: border-box;
     min-height: calc(70vh - 70px);
+
+    background-color: black;
+    border: 15px solid #161616;
 }
 
 .section2 {
@@ -110,9 +119,18 @@ body {
     width: 100%;
     text-align: center;
     min-height: 650px;
-    background-color: rgb(43, 0, 255);
+    background-color: #013cd4;
 
     box-sizing: border-box;
+
+    padding-top: 50px;
+}
+
+.section2 h3 {
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 50px;
 }
 
 .livecodelogs-container {
@@ -127,14 +145,17 @@ body {
     display: inline-block;
     width: 70%;
     text-align: left;
+    background-color: #252526;
+    padding: 25px;
+    box-sizing: border-box;
 }
 
 .filesystem {
     position: absolute;
-    left: 0px;
-    top: 0px;
-    bottom: 0px;
-    width: 30%;
+    left: 25px;
+    top: 25px;
+    bottom: 25px;
+    width: calc(30% - 25px);
     overflow: auto;
 }
 
