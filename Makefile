@@ -55,7 +55,9 @@ build-gpt-engineer: $(BUILDDIR)
 .PHONY:build-web
 build-web: $(BUILDDIR)
 	rm -rf $(BUILDDIR)/web && rm -f $(CURDIR)/web/js/lib/boxedmonaco.js && \
-	cd $(CURDIR)/web/js/lib/ && wget https://github.com/arthurweinmann/boxed-monaco-editor/releases/download/3261535/boxedmonaco.js && \
+	cd $(CURDIR)/web/js/lib/ && wget https://github.com/arthurweinmann/boxed-monaco-editor/releases/download/42099b8/boxedmonaco.tar.gz && \
+	tar -xf boxedmonaco.tar.gz && \
+	rm boxedmonaco.tar.gz && \
 	cd $(CURDIR) && \
 	mkdir -p $(BUILDDIR)/web && cp -r $(CURDIR)/web/* $(BUILDDIR)/web
 
