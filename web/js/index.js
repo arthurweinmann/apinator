@@ -1,7 +1,13 @@
 function GlobalInit() {
     boxedMonaco.editor.create(document.querySelector('.code'), {
         value: `console.log("Hello, World")`,
-        language: 'javascript'
+        language: 'javascript',
+        scrollbar: {
+            vertical: 'auto',
+            horizontal: 'auto'
+        },
+        theme: "vs-dark",
+        automaticLayout: true,
     });
 
     setupFilesystem();
