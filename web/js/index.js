@@ -1,19 +1,14 @@
 function GlobalInit() {
+    boxedMonaco.editor.create(document.querySelector('.livecode'), {
+        value: `console.log("Hello, World")`,
+        language: 'javascript'
+    });
+
     if (localStorage.getItem("X-APINATOR-AUTH") == "") {
         document.querySelector(".signinpopup").style.display = "block";
         logininit();
     } else {
-//         boxedMonaco.create(document.querySelector('.livecode'), {
-//             value: `package main
-// import (
-//     "fmt"
-// )
 
-// func main() {
-//     fmt.Println("Hello, world")
-// }`,
-//             language: 'go'
-//         });
     }
 }
 
