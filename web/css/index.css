@@ -43,7 +43,8 @@ html, body {
     display: inline-block;
     width: 100%;
     min-height: calc(80% - 70px);
-    background-color: rgb(40, 40, 40);
+
+    background: linear-gradient(to bottom, rgb(40, 40, 40), rgb(40, 40, 40) 80%, rgb(43, 0, 255) 80%);
 }
 
 .header-container {
@@ -76,7 +77,8 @@ html, body {
     text-align: center;
     padding-left: 25px;
     padding-right: 25px;
-    bottom: -150px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .section2 {
@@ -102,6 +104,7 @@ html, body {
     position: relative;
     display: inline-block;
     width: 70%;
+    text-align: left;
 }
 
 .filesystem {
@@ -116,5 +119,6 @@ html, body {
     position: relative;
     width: 70%;
     min-height: 350px;
+    height: calc(70vh);
     float: right;
 }
