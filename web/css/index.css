@@ -149,7 +149,6 @@ body {
     width: 70%;
     text-align: left;
     background-color: #252526;
-    padding: 25px;
     box-sizing: border-box;
 }
 
@@ -172,7 +171,6 @@ body {
 
 #hierarchy {
     font-family: FontAwesome;
-    width: 300px;
 }
 
 .foldercontainer,
