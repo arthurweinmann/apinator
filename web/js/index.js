@@ -4,12 +4,12 @@ function GlobalInit() {
         language: 'javascript'
     });
 
-    if (localStorage.getItem("X-APINATOR-AUTH") == "") {
-        document.querySelector(".signinpopup").style.display = "block";
-        logininit();
-    } else {
+    // if (localStorage.getItem("X-APINATOR-AUTH") == "") {
+    //     document.querySelector(".signinpopup").style.display = "block";
+    //     logininit();
+    // } else {
 
-    }
+    // }
 }
 
 function logininit() {
