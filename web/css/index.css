@@ -67,9 +67,12 @@ body {
 .header-container .mascot {
     position: absolute;
     left: 35px;
-    bottom: -250px;
-    width: 300px;
-    height: 300px;
+    bottom: -15px;
+    width: 200px;
+}
+
+.header-container .mascot img {
+    width: 100%;
 }
 
 .header-container .header {
@@ -176,15 +179,15 @@ body {
 .file,
 .noitems {
     display: block;
-    padding: 5px 5px 5px 50px;
+    padding: 5px 5px 5px 15px;
 }
 
 .folder {
-    color: red;
+    color: white;
 }
 
 .file {
-    color: green;
+    color: white;
 }
 
 .folder,
@@ -199,7 +202,7 @@ body {
 
 .folder:hover,
 .file:hover {
-    background: yellow;
+    background: #3d3d3f;
 }
 
 .folder:before,
