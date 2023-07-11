@@ -71,6 +71,15 @@ body {
     width: 200px;
 }
 
+@media (max-width: 600px) {
+    .header-container .mascot {
+        position: absolute;
+        width: 150px;
+        top: -80px;
+        right: 0px;
+    }
+}
+
 .header-container .mascot img {
     width: 100%;
 }
