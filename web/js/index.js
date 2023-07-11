@@ -1,5 +1,5 @@
 function GlobalInit() {
-    boxedMonaco.editor.create(document.querySelector('.livecode'), {
+    boxedMonaco.editor.create(document.querySelector('.code'), {
         value: `console.log("Hello, World")`,
         language: 'javascript'
     });

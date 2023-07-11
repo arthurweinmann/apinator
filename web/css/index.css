@@ -102,9 +102,23 @@ html, body {
     width: 100%;
 }
 
-.livecode {
+.codeEditor {
     position: relative;
     display: inline-block;
     width: 70%;
+}
+
+.filesystem {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 30%;
+}
+
+.code {
+    position: relative;
+    width: 70%;
     min-height: 350px;
+    float: right;
 }
