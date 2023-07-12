@@ -3,19 +3,6 @@ function GlobalInit() {
         document.querySelector(".signinpopup").style.display = "block";
         logininit();
     } else {
-        window.boxedMonaco.editor.create(document.querySelector('.code'), {
-            value: `console.log("Hello, World")`,
-            language: 'javascript',
-            scrollbar: {
-                vertical: 'auto',
-                horizontal: 'auto'
-            },
-            theme: "vs-dark",
-            automaticLayout: true,
-        });
-
-        setupFilesystem();
-
         addFile("/cmd/apinator/main.go");
         addFile("cmd/build/main.go");
         addFile("internal/config/config.go");
@@ -40,7 +27,26 @@ function logininit() {
     });
 }
 
+var editorInit = false;
+
 function addFile(path, content) {
+    if (!editorInit) {
+        setupFilesystem();
+
+        window.boxedMonaco.editor.create(document.querySelector('.code'), {
+            value: `fmt.Printf("Hello, World")`,
+            language: 'go',
+            scrollbar: {
+                vertical: 'auto',
+                horizontal: 'auto'
+            },
+            theme: "vs-dark",
+            automaticLayout: true,
+        });
+
+        editorInit = true;
+    }
+
     // normalize path
     if (path.endsWith('/')) {
         path = path.slice(0, -1);
