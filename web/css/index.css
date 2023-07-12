@@ -160,7 +160,7 @@ button:hover {
     .header-container .mascot {
         position: absolute;
         left: 15px;
-        bottom: 0px;
+        bottom: -25px;
         width: 90px;
     }
 }

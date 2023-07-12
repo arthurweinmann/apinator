@@ -27,7 +27,7 @@ func init() {
 	if string(out) == "" {
 		panic(fmt.Errorf("We could not find gpt-engineer"))
 	}
-	gptengineerpath = string(out)
+	gptengineerpath = strings.Trim(string(out), " \n\r\t")
 }
 
 var upgrader = websocket.Upgrader{
@@ -48,6 +48,7 @@ type CreateAPISeed struct {
 }
 
 type MessageFromBackend struct {
+	Success          bool   `json:"success"`
 	ProjectReference string `json:"project_reference"`
 	Chunk            string `json:"chunk"`
 	Finished         bool   `json:"finished"`
@@ -95,6 +96,11 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v", "internalError", err))
 		return
 	}
+	defer func() {
+		if err != nil {
+			os.RemoveAll(filepath.Join(config.HOME, "projects", projref))
+		}
+	}()
 
 	err = os.WriteFile(filepath.Join(config.HOME, "projects", projref, "prompt"), []byte(seed.Prompt), 0644)
 	if err != nil {
@@ -102,7 +108,7 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = sendSockJSON(sock, &MessageFromBackend{ProjectReference: projref})
+	err = sendSockJSON(sock, &MessageFromBackend{Success: true, ProjectReference: projref})
 	if err != nil {
 		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v", "internalError", err))
 		return
@@ -132,6 +138,7 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 	s := bufio.NewScanner(stdout)
 	for s.Scan() {
 		err = sendSockJSON(sock, &MessageFromBackend{
+			Success:          true,
 			ProjectReference: projref,
 			Chunk:            string(s.Bytes()),
 		})
@@ -166,6 +173,7 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = sendSockJSON(sock, &MessageFromBackend{
+		Success:          true,
 		ProjectReference: projref,
 		Finished:         true,
 	})

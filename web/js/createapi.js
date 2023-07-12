@@ -62,6 +62,12 @@ function CreateAPI(seedprompt, cb) {
     ws.onmessage = (event) => {
         let message = JSON.parse(event.data);
 
+        if (!message.success) {
+            cb(null, new Err(message.code, message.message))
+            ws.close();
+            return;
+        }
+
         if (message.ProjectReference) {
             projectReference = message.ProjectReference;
         }
