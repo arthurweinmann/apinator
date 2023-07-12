@@ -8,13 +8,13 @@ function GlobalInit() {
 }
 
 function start() {
-    addFile("/cmd/apinator/main.go", "javascript");
-    addFile("cmd/build/main.go", "javascript");
-    addFile("internal/config/config.go", "javascript");
+    // addFile("/cmd/apinator/main.go", "javascript");
+    // addFile("cmd/build/main.go", "javascript");
+    // addFile("internal/config/config.go", "javascript");
 
     writeQuestion("What would you like to work on today?",
         createTextareaWithPlaceholder("specarea", "Your specification goes here"),
-        createButtonWithText("specarea", "Send"));
+        createSendButtonWithText("specarea", "Send"));
 }
 
 function writeQuestion(question, ...actioncontent) {

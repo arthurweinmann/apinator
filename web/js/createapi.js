@@ -30,7 +30,7 @@ function CreateAPI(seedprompt, cb) {
 
         writeQuestion(message,
             createTextareaWithPlaceholder("answerarea", "Your response goes here"),
-            createButtonWithText("answerarea", "Send"));
+            createSendButtonWithText("answerarea", "Send"));
     };
 
     const reasoning = (message) => {
@@ -42,6 +42,11 @@ function CreateAPI(seedprompt, cb) {
         CODE
         ```
         */
+
+        let snippets = extractSnippets(message);
+        for (let i = 0; i < snippets.length; i++) {
+            addFile(snippets[i].filename, snippets[i].lang, snippets[i].code);
+        }
     };
 
     ws.onopen = () => {
@@ -105,4 +110,20 @@ function CreateAPI(seedprompt, cb) {
     };
 
     return ws;
+}
+
+function extractSnippets(text) {
+    let pattern = /(\w+\.?\w*)\s*```(\w+)\s*([\s\S]*?)\s*```/g;
+    let match;
+    let snippets = [];
+    
+    while ((match = pattern.exec(text)) !== null) {
+        snippets.push({
+            filename: match[1],
+            lang: match[2],
+            code: match[3].trim(),
+        });
+    }
+    
+    return snippets;
 }
