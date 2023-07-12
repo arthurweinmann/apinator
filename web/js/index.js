@@ -3,10 +3,14 @@ function GlobalInit() {
         document.querySelector(".signinpopup").style.display = "block";
         logininit();
     } else {
-        addFile("/cmd/apinator/main.go");
-        addFile("cmd/build/main.go");
-        addFile("internal/config/config.go");
+        start();
     }
+}
+
+function start() {
+    addFile("/cmd/apinator/main.go", "javascript");
+    addFile("cmd/build/main.go", "javascript");
+    addFile("internal/config/config.go", "javascript");
 }
 
 function logininit() {
@@ -24,6 +28,7 @@ function logininit() {
 
         document.querySelector(".signinpopup").style.display = "none";
         document.body.style.overflow = "visible";
+        start();
     });
 
     input.addEventListener("keydown", function (event) {
@@ -35,19 +40,20 @@ function logininit() {
 
             document.querySelector(".signinpopup").style.display = "none";
             document.body.style.overflow = "visible";
+            start();
         }
     });
 }
 
 var editorInit = false;
 
-function addFile(path, content) {
+function addFile(path, language, content) {
     if (!editorInit) {
         setupFilesystem();
 
         window.boxedMonaco.editor.create(document.querySelector('.code'), {
-            value: `fmt.Printf("Hello, World")`,
-            language: 'go',
+            value: `console.log("Hello, World")`,
+            language: language,
             scrollbar: {
                 vertical: 'auto',
                 horizontal: 'auto'
