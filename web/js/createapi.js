@@ -51,6 +51,7 @@ function CreateAPI(seedprompt, cb) {
 
         let snippets = extractSnippets(message);
         for (let i = 0; i < snippets.length; i++) {
+            console.log("Filename: ", snippets[i].filename, "lang:", snippets[i].lang, "code:", snippets[i].code);
             addFile(snippets[i].filename, snippets[i].lang, snippets[i].code);
         }
     };
