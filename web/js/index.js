@@ -12,26 +12,44 @@ function start() {
     addFile("cmd/build/main.go", "javascript");
     addFile("internal/config/config.go", "javascript");
 
-    writeQuestion("What would you like to work on today?", 
-    createTextareaWithPlaceholder("Your specification goes here"),
-    createButtonWithText("Send"));
+    writeQuestion("What would you like to work on today?",
+        createTextareaWithPlaceholder("specarea", "Your specification goes here"),
+        createButtonWithText("specarea", "Send"));
 }
 
 function writeQuestion(question, ...actioncontent) {
     document.querySelector(".question").innerHTML = question;
     document.querySelector(".question-action").innerHTML = "";
-    document.querySelector(".question-action").appendChild(...actioncontent);
+    for (const elem of actioncontent) {
+        document.querySelector(".question-action").appendChild(elem);
+    }
 }
 
-function createTextareaWithPlaceholder(placeholderText) {
+function createTextareaWithPlaceholder(id, placeholderText) {
     var textarea = document.createElement("textarea");
     textarea.placeholder = placeholderText;
+    textarea.setAttribute("id", id);
     return textarea;
 }
 
-function createButtonWithText(buttonText) {
+var createAPISock = null;
+
+function createSendButtonWithText(getTextFromID, buttonText) {
     var button = document.createElement("button");
     button.innerHTML = buttonText;
+    button.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (createAPISock === null) {
+            createAPISock = CreateAPI(document.getElementById(getTextFromID).value, function(data, err) {
+                console.log(data, err);
+            });
+            return;
+        }
+
+        createAPISock.send(JSON.stringify({ ack: true, response: document.getElementById(getTextFromID).value }));
+    });
     return button;
 }
 

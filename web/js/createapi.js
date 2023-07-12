@@ -27,7 +27,10 @@ function CreateAPI(seedprompt, cb) {
 
     const ask = (message) => {
         console.log(`Ask: ${message}`);
-        ws.send(JSON.stringify({ ack: true, response: "" }));
+
+        writeQuestion(message,
+            createTextareaWithPlaceholder("answerarea", "Your response goes here"),
+            createButtonWithText("answerarea", "Send"));
     };
 
     const reasoning = (message) => {
@@ -77,7 +80,7 @@ function CreateAPI(seedprompt, cb) {
                 ask(tempText.substring(startIndex + 9, endIndex));
                 tempText = tempText.replace(tempText.substring(startIndex, endIndex + 10), '');
             }
-            
+
             if ((startIndex = tempText.indexOf('[[[.REASONING]]]')) !== -1 && (endIndex = tempText.indexOf('[[[.ENDREASONING]]]')) !== -1) {
                 reasoning(tempText.substring(startIndex + 13, endIndex));
                 tempText = tempText.replace(tempText.substring(startIndex, endIndex + 13), '');
@@ -100,4 +103,6 @@ function CreateAPI(seedprompt, cb) {
             cb({}, null);
         }
     };
+
+    return ws;
 }

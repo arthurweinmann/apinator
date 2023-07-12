@@ -211,14 +211,8 @@ button:hover {
 }
 
 .question-container {
-    position: absolute;
-
-    width: 80%;
-
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding-top: 30px;
 }
 
 .question-container .question {
