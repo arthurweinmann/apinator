@@ -152,25 +152,13 @@ var editorInit = false;
 var editorInstance = null;
 
 function addFile(path, language, content) {
-    // files[path] = {
-    //     "language": language,
-    //     "content": content
-    // }
-
     let model = window.boxedMonaco.editor.createModel(content, language, "file://"+path);
-
-    // selectOnLineNumbers: true,
-    //   model: monaco.editor.getModel(Uri.parse("file:///main.tsx"))
-    //     ||
-    //     monaco.editor.createModel(code, "typescript", monaco.Uri.parse("file:///main.tsx"))
 
     if (!editorInit) {
         setupFilesystem();
 
         editorInstance = window.boxedMonaco.editor.create(document.querySelector('.code'), {
             model: model,
-            // value: content,
-            // language: language,
             scrollbar: {
                 vertical: 'auto',
                 horizontal: 'auto'
@@ -224,11 +212,12 @@ function addFile(path, language, content) {
     let fileSpan = document.createElement('span');
     fileSpan.className = 'file fa-file-code-o';  // assuming code file, change accordingly
     fileSpan.textContent = spl[spl.length - 1]; // file name from path
+    fileSpan.setAttribute("path", "file://"+path);
     root.appendChild(fileSpan);
-    fileSpan.addEventListener("click", function(e) {
-        let model = window.boxedMonaco.editor.getModel("file://"+path);
-        editorInstance.setModel(model);
-    });
+    // fileSpan.addEventListener("click", function(e) {
+    //     let model = window.boxedMonaco.editor.getModel("file://"+path);
+    //     editorInstance.setModel(model);
+    // });
 }
 
 function setupFilesystem() {
@@ -237,9 +226,12 @@ function setupFilesystem() {
         var elem = event.target;
         if (elem.tagName.toLowerCase() == "span" && elem !== event.currentTarget) {
             var type = elem.classList.contains("folder") ? "folder" : "file";
+            
             if (type == "file") {
-                alert("File accessed");
+                let model = window.boxedMonaco.editor.getModel(elem.getAttribute("path"));
+                editorInstance.setModel(model);
             }
+            
             if (type == "folder") {
                 var isexpanded = elem.dataset.isexpanded == "true";
                 if (isexpanded) {
