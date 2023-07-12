@@ -55,6 +55,32 @@ function logininit() {
 
     document.body.style.overflow = "hidden"
 
+    // const testpassword = function (callback) {
+    //     fetch(config.apidomain + "/", {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(config) // If you want to send data from config to server
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! status: ${response.status}`);
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         if (data.success === true) {
+    //             callback(null, data);
+    //         } else {
+    //             callback(new Error('Success is not true'));
+    //         }
+    //     })
+    //     .catch(error => {
+    //         callback(error);
+    //     });
+    // };
+
     const testpassword = async (cb) => {
         try {
             const response = await fetch("https://" + config.apidomain + "/", {
@@ -80,7 +106,7 @@ function logininit() {
         } catch (error) {
             cb(null, new Err("invalidPassword", "Error trying to check password: " + error));
         }
-    }
+    };
 
     button.addEventListener("click", function (e) {
         e.preventDefault();

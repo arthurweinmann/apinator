@@ -181,6 +181,9 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		if ack.Response != "" {
+			if !strings.HasSuffix(ack.Response, "\n") {
+				ack.Response += "\n"
+			}
 			_, err = stdin.Write([]byte(ack.Response))
 			if err != nil {
 				sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v", "internalError", err))
