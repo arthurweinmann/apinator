@@ -26,6 +26,8 @@ function logininit() {
     var button = document.getElementById("signinButton");
     var input = document.getElementById("signinValue");
 
+    document.body.style.overflow = "hidden" 
+
     button.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -34,6 +36,7 @@ function logininit() {
         localStorage.setItem("X-APINATOR-AUTH", value);
 
         document.querySelector(".signinpopup").style.display = "none";
+        document.body.style.overflow = "visible";
     });
 }
 

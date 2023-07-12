@@ -39,13 +39,10 @@ body {
 }
 
 .signincontainer input {
-    margin-bottom: 35px;
-
     background: 0;
     border: 0;
     outline: none;
-    width: 80vw;
-    max-width: 400px;
+    width: 100%;
     font-size: 1.5em;
     transition: padding 0.3s 0.2s ease;
 }
@@ -60,6 +57,7 @@ body {
 
 .field {
     position: relative;
+    margin-bottom: 30px;
 }
 
 .field .line {
@@ -72,7 +70,6 @@ body {
 
 .field .line:after {
     content: " ";
-    position: absolute;
     float: right;
     width: 100%;
     height: 3px;
