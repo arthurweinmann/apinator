@@ -163,7 +163,7 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 		err = sendSockJSON(sock, &MessageFromBackend{
 			Success:          true,
 			ProjectReference: projref,
-			Chunk:            string(s.Bytes()),
+			Chunk:            string(s.Bytes()) + "\n",
 		})
 		if err != nil {
 			sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v %v", "internalError", err, stderr.String()))
