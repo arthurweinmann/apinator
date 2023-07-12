@@ -38,7 +38,7 @@ function createSendButtonWithText(getTextFromID, buttonText) {
         e.stopPropagation();
 
         if (createAPISock === null) {
-            createAPISock = CreateAPI(document.getElementById(getTextFromID).value, function(data, err) {
+            createAPISock = CreateAPI(document.getElementById(getTextFromID).value, function (data, err) {
                 console.log(data, err);
             });
             return;
@@ -55,16 +55,50 @@ function logininit() {
 
     document.body.style.overflow = "hidden"
 
+    const testpassword = async (cb) => {
+        try {
+            const response = await fetch("https://" + config.apidomain + "/", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            });
+
+            if (!response.ok) {
+                cb(null, new Err("invalidPassword", `HTTP error! status: ${response.status}`));
+                return
+            }
+
+            const data = await response.json();
+
+            if (data.success === true) {
+                cb(true, null);
+            } else {
+                cb(null, new Err("invalidPassword", "The provided password is not valid"));
+            }
+        } catch (error) {
+            cb(null, new Err("invalidPassword", "Error trying to check password: " + error));
+        }
+    }
+
     button.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
         var value = input.value;
-        localStorage.setItem("X-APINATOR-AUTH", value);
+        testpassword(function (data, err) {
+            if (err !== null) {
+                alert(err.message);
+                return;
+            }
 
-        document.querySelector(".signinpopup").style.display = "none";
-        document.body.style.overflow = "visible";
-        start();
+            localStorage.setItem("X-APINATOR-AUTH", value);
+
+            document.querySelector(".signinpopup").style.display = "none";
+            document.body.style.overflow = "visible";
+            start();
+        });
     });
 
     input.addEventListener("keydown", function (event) {
@@ -72,11 +106,18 @@ function logininit() {
             event.preventDefault();
 
             var value = input.value;
-            localStorage.setItem("X-APINATOR-AUTH", value);
+            testpassword(function (data, err) {
+                if (err !== null) {
+                    alert(err.message);
+                    return;
+                }
 
-            document.querySelector(".signinpopup").style.display = "none";
-            document.body.style.overflow = "visible";
-            start();
+                localStorage.setItem("X-APINATOR-AUTH", value);
+
+                document.querySelector(".signinpopup").style.display = "none";
+                document.body.style.overflow = "visible";
+                start();
+            });
         }
     });
 }
