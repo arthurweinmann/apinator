@@ -39,7 +39,6 @@ var upgrader = websocket.Upgrader{
 		if strings.Contains(r.Header.Get("origin"), config.PublicWebsiteDomain) {
 			return true
 		}
-		fmt.Println("invalid origin", r.Header.Get("origin"))
 		return false
 	},
 }

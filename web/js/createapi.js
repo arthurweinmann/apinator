@@ -50,7 +50,9 @@ function CreateAPI(seedprompt, cb) {
     };
 
     ws.onopen = () => {
-        console.log("connection open");
+        console.log("connection open, sending seed prompt");
+
+        ws.send(JSON.stringify({ prompt: seedprompt }));
     };
 
     ws.onerror = (event) => {
