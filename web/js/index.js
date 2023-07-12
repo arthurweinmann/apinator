@@ -69,6 +69,7 @@ function addFile(path, content) {
 
             let folderSpan = document.createElement('span');
             folderSpan.className = 'folder fa-folder';
+            folderSpan.setAttribute("data-isexpanded", "true");
             folderSpan.textContent = spl[i];
 
             newFolder.appendChild(folderSpan);
