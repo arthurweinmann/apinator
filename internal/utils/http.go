@@ -84,6 +84,7 @@ func SendInternalError(w http.ResponseWriter, origin string, err error) {
 }
 
 func SendError(w http.ResponseWriter, message, code string, statusCode int) {
+	fmt.Println(message, code, statusCode)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
 	b, _ := json.Marshal(&JSONErr{
