@@ -68,6 +68,8 @@ function CreateAPI(seedprompt, cb) {
             return;
         }
 
+        let sendmessageack = true;
+
         if (message.ProjectReference) {
             projectReference = message.ProjectReference;
         }
@@ -78,7 +80,6 @@ function CreateAPI(seedprompt, cb) {
             console.log("Current received text", tempText);
 
             let startIndex, endIndex;
-            let sendmessageack = true;
 
             if ((startIndex = tempText.indexOf('[[[.INFO]]]')) !== -1 && (endIndex = tempText.indexOf('[[[.ENDINFO]]]')) !== -1) {
                 infoText(tempText.substring(startIndex + 11, endIndex));
@@ -101,20 +102,19 @@ function CreateAPI(seedprompt, cb) {
                 tempText = tempText.replace(tempText.substring(startIndex, endIndex + 19), '');
             }
 
-            console.log("Current received text after parsring", tempText);
-
-            if (sendmessageack) {
-                // Send ack message after receiving a chunk
-                ws.send(JSON.stringify({ ack: true }));
-            }
+            console.log("Current received text after parsing", tempText);
 
             // if (tempText.includes('[[[.FINALEND]]]')) {
             //     ws.close();
             // }
         }
 
-        if (message.finished) {
+        if (sendmessageack) {
+            // Send ack message after receiving a chunk
             ws.send(JSON.stringify({ ack: true }));
+        }
+
+        if (message.finished) {
             ws.close();
 
             cb({}, null);

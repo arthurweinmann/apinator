@@ -120,6 +120,17 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var ack *MessageFromFrontend
+	ack, err = readSockJSON(sock)
+	if err != nil {
+		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("could not read ack message: %v", "invalidACK", err))
+		return
+	}
+	if !ack.Ack {
+		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("invalid message ack boolean", "invalidACK"))
+		return
+	}
+
 	cmd := exec.Command(gptengineerpath, filepath.Join(config.HOME, "projects", projref))
 	cmd.Dir = filepath.Join(config.HOME, "projects", projref)
 	cmd.Env = append(os.Environ(), "OPENAI_API_KEY="+config.OpenAIKey)
@@ -195,7 +206,6 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var ack *MessageFromFrontend
 	ack, err = readSockJSON(sock)
 	if err != nil {
 		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("could not read ack message: %v", "invalidACK", err))
