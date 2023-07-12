@@ -1,5 +1,5 @@
 function GlobalInit() {
-    if (localStorage.getItem("X-APINATOR-AUTH") == "") {
+    if (localStorage.getItem("X-APINATOR-AUTH") === null) {
         document.querySelector(".signinpopup").style.display = "block";
         logininit();
     } else {
