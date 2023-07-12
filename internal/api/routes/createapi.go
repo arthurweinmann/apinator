@@ -36,7 +36,7 @@ var upgrader = websocket.Upgrader{
 		utils.SendError(w, reason.Error(), "websocketProtocol", status)
 	},
 	CheckOrigin: func(r *http.Request) bool {
-		if strings.Contains(r.Header.Get("origin"), config.APIDomain) {
+		if strings.Contains(r.Header.Get("origin"), config.PublicWebsiteDomain) {
 			return true
 		}
 		fmt.Println("invalid origin", r.Header.Get("origin"))
