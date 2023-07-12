@@ -24,7 +24,7 @@ function CreateAPI(seedprompt, cb) {
 
     const warningText = (message) => {
         console.log(`Warning: ${message}`);
-        writeQuestion(message);
+        // writeQuestion(message);
     };
 
     const askText = (message) => {
@@ -37,6 +37,10 @@ function CreateAPI(seedprompt, cb) {
 
     const reasoningText = (message) => {
         console.log(`Reasoning ${message}`);
+    };
+
+    const fileText = (message) => {
+        console.log(`File ${message}`);
         // raw output of llm, it will contain the generated files as
         /*
         FILENAME
@@ -102,6 +106,11 @@ function CreateAPI(seedprompt, cb) {
             if ((startIndex = tempText.indexOf('[[[.REASONING]]]')) !== -1 && (endIndex = tempText.indexOf('[[[.ENDREASONING]]]')) !== -1) {
                 reasoningText(tempText.substring(startIndex + 16, endIndex));
                 tempText = tempText.replace(tempText.substring(startIndex, endIndex + 19), '');
+            }
+
+            if ((startIndex = tempText.indexOf('[[[.FILE]]]')) !== -1 && (endIndex = tempText.indexOf('[[[.ENDFILE]]]')) !== -1) {
+                fileText(tempText.substring(startIndex + 11, endIndex));
+                tempText = tempText.replace(tempText.substring(startIndex, endIndex + 14), '');
             }
 
             console.log("Current received text after parsing", tempText);
