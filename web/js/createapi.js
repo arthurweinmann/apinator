@@ -72,8 +72,8 @@ function CreateAPI(seedprompt, cb) {
             projectReference = message.ProjectReference;
         }
 
-        if (message.Chunk) {
-            tempText += message.Chunk;
+        if (message.chunk) {
+            tempText += message.chunk;
 
             console.log("Current received text", tempText);
 
@@ -113,7 +113,7 @@ function CreateAPI(seedprompt, cb) {
             // }
         }
 
-        if (message.Finished) {
+        if (message.finished) {
             ws.send(JSON.stringify({ ack: true }));
             ws.close();
 

@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"os/exec"
@@ -60,19 +61,23 @@ type MessageFromFrontend struct {
 }
 
 func CreateAPI(w http.ResponseWriter, r *http.Request) {
+	var err error
+
 	if !websocket.IsWebSocketUpgrade(r) {
 		utils.SendError(w, "you must connect to this route through a websocket", "invalidProtocol", 400)
 		return
 	}
 
-	sock, err := upgrader.Upgrade(w, r, nil)
+	var sock *websocket.Conn
+	sock, err = upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		utils.SendError(w, err.Error(), "invalidProtocol", 400)
 		return
 	}
 	defer sock.Close()
 
-	_, rawmess, err := sock.ReadMessage()
+	var rawmess []byte
+	_, rawmess, err = sock.ReadMessage()
 	if err != nil {
 		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("could not read message: %v", "invalidMessage", err))
 		return
@@ -85,7 +90,8 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	projref, err := utils.UniqueSecureID60()
+	var projref string
+	projref, err = utils.UniqueSecureID60()
 	if err != nil {
 		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v", "internalError", err))
 		return
@@ -117,20 +123,25 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 	cmd := exec.Command(gptengineerpath, filepath.Join(config.HOME, "projects", projref))
 	cmd.Dir = filepath.Join(config.HOME, "projects", projref)
 	cmd.Env = append(os.Environ(), "OPENAI_API_KEY="+config.OpenAIKey)
-	stdout, err := cmd.StdoutPipe()
+
+	var stdout io.ReadCloser
+	stdout, err = cmd.StdoutPipe()
 	if err != nil {
 		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v", "internalError", err))
 		return
 	}
-	stdin, err := cmd.StdinPipe()
+
+	var stdin io.WriteCloser
+	stdin, err = cmd.StdinPipe()
 	if err != nil {
 		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v", "internalError", err))
 		return
 	}
+
 	stderr := bytes.NewBuffer(nil)
 	cmd.Stderr = stderr
 
-	if err := cmd.Start(); err != nil {
+	if err = cmd.Start(); err != nil {
 		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v %v", "internalError", err, stderr.String()))
 		return
 	}
@@ -146,7 +157,9 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 			sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v %v", "internalError", err, stderr.String()))
 			return
 		}
-		ack, err := readSockJSON(sock)
+
+		var ack *MessageFromFrontend
+		ack, err = readSockJSON(sock)
 		if err != nil {
 			sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("could not read ack message: %v", "invalidACK", err))
 			return
@@ -167,7 +180,7 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 	stdin.Close()
 	stdout.Close()
 
-	if err := cmd.Wait(); err != nil {
+	if err = cmd.Wait(); err != nil {
 		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v", "internalError", err))
 		return
 	}
@@ -181,7 +194,9 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v %v", "internalError", err, stderr.String()))
 		return
 	}
-	ack, err := readSockJSON(sock)
+
+	var ack *MessageFromFrontend
+	ack, err = readSockJSON(sock)
 	if err != nil {
 		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("could not read ack message: %v", "invalidACK", err))
 		return
