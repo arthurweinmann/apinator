@@ -151,10 +151,10 @@ function logininit() {
 var editorInit = false;
 
 function addFile(path, language, content) {
-    files[path] = {
-        "language": language,
-        "content": content
-    }
+    // files[path] = {
+    //     "language": language,
+    //     "content": content
+    // }
 
     let model = window.boxedMonaco.editor.createModel(content, language, "file://"+path);
 
