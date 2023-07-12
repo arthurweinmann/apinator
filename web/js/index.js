@@ -167,7 +167,7 @@ function addFile(path, language, content) {
         setupFilesystem();
 
         window.boxedMonaco.editor.create(document.querySelector('.code'), {
-            model: window.boxedMonaco.editor,
+            model: model,
             // value: content,
             // language: language,
             scrollbar: {
