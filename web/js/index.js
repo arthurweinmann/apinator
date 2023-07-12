@@ -13,7 +13,7 @@ function logininit() {
     var button = document.getElementById("signinButton");
     var input = document.getElementById("signinValue");
 
-    document.body.style.overflow = "hidden" 
+    document.body.style.overflow = "hidden"
 
     button.addEventListener("click", function (e) {
         e.preventDefault();
@@ -24,6 +24,18 @@ function logininit() {
 
         document.querySelector(".signinpopup").style.display = "none";
         document.body.style.overflow = "visible";
+    });
+
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+
+            var value = input.value;
+            localStorage.setItem("X-APINATOR-AUTH", value);
+
+            document.querySelector(".signinpopup").style.display = "none";
+            document.body.style.overflow = "visible";
+        }
     });
 }
 
