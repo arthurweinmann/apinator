@@ -44,11 +44,6 @@ func (s *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if stripedhost == s.apidomain {
-		if r.Header.Get("X-APINATOR-AUTH") != config.MDP && r.Header.Get("Sec-WebSocket-Protocol") != config.MDP {
-			utils.SendError(w, "you are not authorized", "forbidden", 403)
-			return
-		}
-
 		s.api(w, r)
 		return
 	}
@@ -178,6 +173,11 @@ func (s *Router) api(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "OPTIONS" {
 		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	if r.Header.Get("X-APINATOR-AUTH") != config.MDP && r.Header.Get("Sec-WebSocket-Protocol") != config.MDP {
+		utils.SendError(w, "you are not authorized", "forbidden", 403)
 		return
 	}
 
