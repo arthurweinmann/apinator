@@ -202,7 +202,24 @@ func sendSockJSON(sock *websocket.Conn, message *MessageFromBackend) error {
 }
 
 func readSockJSON(sock *websocket.Conn) (*MessageFromFrontend, error) {
-	_, rawmess, err := sock.ReadMessage()
+
+	// We do not need a mutex since those variable are never accessed concurrently
+	var rawmess []byte
+	var err error
+
+	done := make(chan bool, 1)
+
+	go func() {
+		_, rawmess, err = sock.ReadMessage()
+		done <- true
+	}()
+
+	select {
+	case <-done:
+	case <-time.After(45 * time.Second):
+		return nil, fmt.Errorf("timeout waiting for response from frontend")
+	}
+
 	if err != nil {
 		return nil, err
 	}

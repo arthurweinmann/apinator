@@ -17,15 +17,15 @@ function CreateAPI(seedprompt, cb) {
     let tempText = "";
 
     // Define your callback functions
-    const info = (message) => {
+    const infoText = (message) => {
         console.log(`Info: ${message}`);
     };
 
-    const warning = (message) => {
+    const warningText = (message) => {
         console.log(`Warning: ${message}`);
     };
 
-    const ask = (message) => {
+    const askText = (message) => {
         console.log(`Ask: ${message}`);
 
         writeQuestion(message,
@@ -33,7 +33,7 @@ function CreateAPI(seedprompt, cb) {
             createSendButtonWithText("answerarea", "Send"));
     };
 
-    const reasoning = (message) => {
+    const reasoningText = (message) => {
         console.log(`Reasoning ${message}`);
         // raw output of llm, it will contain the generated files as
         /*
@@ -75,29 +75,33 @@ function CreateAPI(seedprompt, cb) {
         if (message.Chunk) {
             tempText += message.Chunk;
 
+            console.log("Current received text", tempText);
+
             let startIndex, endIndex;
             let sendmessageack = true;
 
             if ((startIndex = tempText.indexOf('[[[.INFO]]]')) !== -1 && (endIndex = tempText.indexOf('[[[.ENDINFO]]]')) !== -1) {
-                info(tempText.substring(startIndex + 11, endIndex));
-                tempText = tempText.replace(tempText.substring(startIndex, endIndex + 12), '');
+                infoText(tempText.substring(startIndex + 11, endIndex));
+                tempText = tempText.replace(tempText.substring(startIndex, endIndex + 14), '');
             }
 
             if ((startIndex = tempText.indexOf('[[[.WARNING]]]')) !== -1 && (endIndex = tempText.indexOf('[[[.ENDWARNING]]]')) !== -1) {
-                warning(tempText.substring(startIndex + 13, endIndex));
-                tempText = tempText.replace(tempText.substring(startIndex, endIndex + 13), '');
+                warningText(tempText.substring(startIndex + 14, endIndex));
+                tempText = tempText.replace(tempText.substring(startIndex, endIndex + 17), '');
             }
 
             if ((startIndex = tempText.indexOf('[[[.ASK]]]')) !== -1 && (endIndex = tempText.indexOf('[[[.ENDASK]]]')) !== -1) {
                 sendmessageack = false
-                ask(tempText.substring(startIndex + 9, endIndex));
-                tempText = tempText.replace(tempText.substring(startIndex, endIndex + 10), '');
+                askText(tempText.substring(startIndex + 10, endIndex));
+                tempText = tempText.replace(tempText.substring(startIndex, endIndex + 13), '');
             }
 
             if ((startIndex = tempText.indexOf('[[[.REASONING]]]')) !== -1 && (endIndex = tempText.indexOf('[[[.ENDREASONING]]]')) !== -1) {
-                reasoning(tempText.substring(startIndex + 13, endIndex));
-                tempText = tempText.replace(tempText.substring(startIndex, endIndex + 13), '');
+                reasoningText(tempText.substring(startIndex + 16, endIndex));
+                tempText = tempText.replace(tempText.substring(startIndex, endIndex + 19), '');
             }
+
+            console.log("Current received text after parsring", tempText);
 
             if (sendmessageack) {
                 // Send ack message after receiving a chunk
