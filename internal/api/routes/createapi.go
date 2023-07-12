@@ -153,7 +153,8 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 	cmd.Stderr = stderr
 
 	if err = cmd.Start(); err != nil {
-		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v %v", "internalError", err, stderr.String()))
+		b, _ := io.ReadAll(stdout)
+		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v %v %v", "internalError", err, string(b), stderr.String()))
 		return
 	}
 
@@ -192,7 +193,8 @@ func CreateAPI(w http.ResponseWriter, r *http.Request) {
 	stdout.Close()
 
 	if err = cmd.Wait(); err != nil {
-		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v", "internalError", err))
+		b, _ := io.ReadAll(stdout)
+		sock.WriteMessage(websocket.TextMessage, utils.MarshalJSONErr("internal error: %v %v %v", "internalError", err, string(b), stderr.String()))
 		return
 	}
 
