@@ -13,8 +13,12 @@ function GlobalInit() {
             theme: "vs-dark",
             automaticLayout: true,
         });
-    
+
         setupFilesystem();
+
+        addFile("/cmd/apinator/main.go");
+        addFile("cmd/build/main.go");
+        addFile("internal/config/config.go");
     }
 }
 
@@ -31,6 +35,49 @@ function logininit() {
 
         document.querySelector(".signinpopup").style.display = "none";
     });
+}
+
+function addFile(path, content) {
+    // normalize path
+    if (path.endsWith('/')) {
+        path = path.slice(0, -1);
+    }
+    if (path.startsWith('/')) {
+        path = path.slice(1);
+    }
+    let spl = path.split('/');
+
+    let root = document.getElementById('hierarchy');
+
+    for (let i = 0; i < spl.length - 1; i++) { // adjusted to not include file
+        let found = false;
+
+        for (let child of root.children) {
+            if (child.firstChild.textContent === spl[i]) {
+                root = child;
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            let newFolder = document.createElement('div');
+            newFolder.className = 'foldercontainer';
+
+            let folderSpan = document.createElement('span');
+            folderSpan.className = 'folder fa-folder';
+            folderSpan.textContent = spl[i];
+
+            newFolder.appendChild(folderSpan);
+            root.appendChild(newFolder);
+            root = newFolder;
+        }
+    }
+
+    let fileSpan = document.createElement('span');
+    fileSpan.className = 'file fa-file-code-o';  // assuming code file, change accordingly
+    fileSpan.textContent = spl[spl.length - 1]; // file name from path
+    root.appendChild(fileSpan);
 }
 
 function setupFilesystem() {
