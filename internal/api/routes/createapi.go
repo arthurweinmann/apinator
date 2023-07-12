@@ -246,7 +246,7 @@ func readSockJSON(sock *websocket.Conn) (*MessageFromFrontend, error) {
 
 	select {
 	case <-done:
-	case <-time.After(45 * time.Second):
+	case <-time.After(600 * time.Second):
 		return nil, fmt.Errorf("timeout waiting for response from frontend")
 	}
 
