@@ -19,10 +19,12 @@ function CreateAPI(seedprompt, cb) {
     // Define your callback functions
     const infoText = (message) => {
         console.log(`Info: ${message}`);
+        writeQuestion(message);
     };
 
     const warningText = (message) => {
         console.log(`Warning: ${message}`);
+        writeQuestion(message);
     };
 
     const askText = (message) => {
