@@ -81,12 +81,13 @@ function logininit() {
     //     });
     // };
 
-    const testpassword = async (cb) => {
+    const testpassword = async (password, cb) => {
         try {
             const response = await fetch("https://" + config.apidomain + "/", {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-APINATOR-AUTH': password
                 },
                 body: JSON.stringify({})
             });
@@ -113,9 +114,9 @@ function logininit() {
         e.stopPropagation();
 
         var value = input.value;
-        testpassword(function (data, err) {
+        testpassword(value, function (data, err) {
             if (err !== null) {
-                alert(err.message);
+                alert(err.Message);
                 return;
             }
 
@@ -132,9 +133,9 @@ function logininit() {
             event.preventDefault();
 
             var value = input.value;
-            testpassword(function (data, err) {
+            testpassword(value, function (data, err) {
                 if (err !== null) {
-                    alert(err.message);
+                    alert(err.Message);
                     return;
                 }
 
