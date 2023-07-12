@@ -12,8 +12,18 @@ body {
     bottom: 0px;
     right: 0px;
     left: 0px;
+    z-index: 999;
+}
+
+.signinpopup .veil {
     background-color: black;
     opacity: 0.4;
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
 }
 
 .signincontainer {
@@ -23,6 +33,10 @@ body {
     top: calc(50% - 50px);
     left: calc(50% - 125px);
     background-color: rgb(245, 250, 255);
+    z-index: 2;
+    padding: 50px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .topbar {
