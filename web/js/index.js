@@ -1,23 +1,21 @@
 function GlobalInit() {
-    window.boxedMonaco.editor.create(document.querySelector('.code'), {
-        value: `console.log("Hello, World")`,
-        language: 'javascript',
-        scrollbar: {
-            vertical: 'auto',
-            horizontal: 'auto'
-        },
-        theme: "vs-dark",
-        automaticLayout: true,
-    });
-
-    setupFilesystem();
-
-    // if (localStorage.getItem("X-APINATOR-AUTH") == "") {
-    //     document.querySelector(".signinpopup").style.display = "block";
-    //     logininit();
-    // } else {
-
-    // }
+    if (localStorage.getItem("X-APINATOR-AUTH") == "") {
+        document.querySelector(".signinpopup").style.display = "block";
+        logininit();
+    } else {
+        window.boxedMonaco.editor.create(document.querySelector('.code'), {
+            value: `console.log("Hello, World")`,
+            language: 'javascript',
+            scrollbar: {
+                vertical: 'auto',
+                horizontal: 'auto'
+            },
+            theme: "vs-dark",
+            automaticLayout: true,
+        });
+    
+        setupFilesystem();
+    }
 }
 
 function logininit() {
