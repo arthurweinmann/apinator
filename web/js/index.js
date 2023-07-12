@@ -92,17 +92,17 @@ function logininit() {
                 body: JSON.stringify({})
             });
 
-            if (!response.ok) {
-                cb(null, new Err("invalidPassword", `HTTP error! status: ${response.status}`));
+            try {
+                const data = await response.json();
+
+                if (data.success === true) {
+                    cb(true, null);
+                } else {
+                    cb(null, new Err("invalidPassword", "The provided password is not valid"));
+                }
+            } catch (e) {
+                cb(null, new Err("invalidPassword", `HTTP error! status: ${response.status}, ${e}`));
                 return
-            }
-
-            const data = await response.json();
-
-            if (data.success === true) {
-                cb(true, null);
-            } else {
-                cb(null, new Err("invalidPassword", "The provided password is not valid"));
             }
         } catch (error) {
             cb(null, new Err("invalidPassword", "Error trying to check password: " + error));

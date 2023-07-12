@@ -181,7 +181,7 @@ func (s *Router) api(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if len(spath) == 0 {
+	if len(spath) == 0 || (len(spath) == 1 && (spath[0] == "" || spath[0] == "/")) {
 		utils.SendSuccess(w, &rootResponse{
 			Success: true,
 		})
