@@ -151,12 +151,25 @@ function logininit() {
 var editorInit = false;
 
 function addFile(path, language, content) {
+    files[path] = {
+        "language": language,
+        "content": content
+    }
+
+    let model = window.boxedMonaco.editor.createModel(content, language, "file://"+path);
+
+    // selectOnLineNumbers: true,
+    //   model: monaco.editor.getModel(Uri.parse("file:///main.tsx"))
+    //     ||
+    //     monaco.editor.createModel(code, "typescript", monaco.Uri.parse("file:///main.tsx"))
+
     if (!editorInit) {
         setupFilesystem();
 
         window.boxedMonaco.editor.create(document.querySelector('.code'), {
-            value: `console.log("Hello, World")`,
-            language: language,
+            model: window.boxedMonaco.editor,
+            // value: content,
+            // language: language,
             scrollbar: {
                 vertical: 'auto',
                 horizontal: 'auto'
@@ -166,6 +179,8 @@ function addFile(path, language, content) {
         });
 
         editorInit = true;
+    } else {
+        window.boxedMonaco.editor.setModel(model);
     }
 
     // normalize path
@@ -209,6 +224,10 @@ function addFile(path, language, content) {
     fileSpan.className = 'file fa-file-code-o';  // assuming code file, change accordingly
     fileSpan.textContent = spl[spl.length - 1]; // file name from path
     root.appendChild(fileSpan);
+    fileSpan.addEventListener("click", function(e) {
+        let model = window.boxedMonaco.editor.getModel("file://"+path);
+        window.boxedMonaco.editor.setModel(model);
+    });
 }
 
 function setupFilesystem() {
