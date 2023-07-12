@@ -78,7 +78,7 @@ body {
     background: #1abc9c;
 }
 
-.signincontainer button {
+button {
     align-items: center;
     background-color: #fff;
     border-radius: 12px;
@@ -106,7 +106,7 @@ body {
     touch-action: manipulation;
 }
 
-.signincontainer button:hover {
+button:hover {
     box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
 }
 
@@ -210,11 +210,36 @@ body {
     border: 15px solid #161616;
 }
 
+.question-container {
+    position: absolute;
+
+    width: 80%;
+
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 .question-container .question {
     color: white;
     font-size: 2em;
     font-weight: bold;
     line-height: 1.2;
+    margin-bottom: 24px;
+}
+
+.question-container textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+    margin-bottom: 24px;
 }
 
 .section2 {

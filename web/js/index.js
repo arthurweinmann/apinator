@@ -12,19 +12,27 @@ function start() {
     addFile("cmd/build/main.go", "javascript");
     addFile("internal/config/config.go", "javascript");
 
-    writeQuestion("What would you like to work on today?", createTextareaWithPlaceholder("Your specification goes here"));
+    writeQuestion("What would you like to work on today?", 
+    createTextareaWithPlaceholder("Your specification goes here"),
+    createButtonWithText("Send"));
 }
 
-function writeQuestion(question, actioncontent) {
+function writeQuestion(question, ...actioncontent) {
     document.querySelector(".question").innerHTML = question;
     document.querySelector(".question-action").innerHTML = "";
-    document.querySelector(".question-action").appendChild(actioncontent);
+    document.querySelector(".question-action").appendChild(...actioncontent);
 }
 
 function createTextareaWithPlaceholder(placeholderText) {
     var textarea = document.createElement("textarea");
     textarea.placeholder = placeholderText;
     return textarea;
+}
+
+function createButtonWithText(buttonText) {
+    var button = document.createElement("button");
+    button.innerHTML = buttonText;
+    return button;
 }
 
 function logininit() {
