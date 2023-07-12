@@ -149,6 +149,7 @@ function logininit() {
 }
 
 var editorInit = false;
+var editorInstance = null;
 
 function addFile(path, language, content) {
     // files[path] = {
@@ -166,7 +167,7 @@ function addFile(path, language, content) {
     if (!editorInit) {
         setupFilesystem();
 
-        window.boxedMonaco.editor.create(document.querySelector('.code'), {
+        editorInstance = window.boxedMonaco.editor.create(document.querySelector('.code'), {
             model: model,
             // value: content,
             // language: language,
@@ -180,7 +181,7 @@ function addFile(path, language, content) {
 
         editorInit = true;
     } else {
-        window.boxedMonaco.editor.setModel(model);
+        editorInstance.setModel(model);
     }
 
     // normalize path
@@ -226,7 +227,7 @@ function addFile(path, language, content) {
     root.appendChild(fileSpan);
     fileSpan.addEventListener("click", function(e) {
         let model = window.boxedMonaco.editor.getModel("file://"+path);
-        window.boxedMonaco.editor.setModel(model);
+        editorInstance.setModel(model);
     });
 }
 
