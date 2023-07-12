@@ -65,7 +65,7 @@ func (s *Router) dashboard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := s.setupCORS(w, s.publicwebsitedomain)
+	err := s.setupCORS(w, "https://"+s.publicwebsitedomain)
 	if err != nil {
 		utils.SendError(w, "this origin is not allowed", "invalidOriginHeader", 403)
 		return
@@ -165,7 +165,7 @@ type rootResponse struct {
 func (s *Router) api(w http.ResponseWriter, r *http.Request) {
 	spath := utils.SplitSlash(r.URL.Path)
 
-	err := s.setupCORS(w, s.publicwebsitedomain)
+	err := s.setupCORS(w, "https://"+s.publicwebsitedomain)
 	if err != nil {
 		utils.SendError(w, "this origin is not allowed", "invalidOriginHeader", 403)
 		return
