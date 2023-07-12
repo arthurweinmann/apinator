@@ -210,6 +210,13 @@ body {
     border: 15px solid #161616;
 }
 
+.question-container .question {
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
 .section2 {
     position: relative;
     display: inline-block;
