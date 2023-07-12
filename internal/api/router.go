@@ -225,7 +225,7 @@ func (s *Router) setupCORS(w http.ResponseWriter, origin string) error {
 	h.Add("Access-Control-Allow-Credentials", "true")
 
 	h.Add("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE, OPTIONS")
-	h.Add("Access-Control-Allow-Headers", "Origin,Accept,Access-Control-Allow-Origin,Access-Control-Allow-Methods,Access-Control-Allow-Headers,Access-Control-Allow-Credentials,Accept-Encoding,Accept-Language,Access-Control-Request-Headers,Access-Control-Request-Method,Cache-Control,Connection,Host,Pragma,Referer,Sec-Fetch-Dest,Sec-Fetch-Mode,Sec-Fetch-Site,Set-Cookie,User-Agent,Vary,Method,Content-Type,Content-Length")
+	h.Add("Access-Control-Allow-Headers", "X-APINATOR-AUTH,Sec-WebSocket-Protocol,Origin,Accept,Access-Control-Allow-Origin,Access-Control-Allow-Methods,Access-Control-Allow-Headers,Access-Control-Allow-Credentials,Accept-Encoding,Accept-Language,Access-Control-Request-Headers,Access-Control-Request-Method,Cache-Control,Connection,Host,Pragma,Referer,Sec-Fetch-Dest,Sec-Fetch-Mode,Sec-Fetch-Site,Set-Cookie,User-Agent,Vary,Method,Content-Type,Content-Length")
 	h.Add("Vary", "*")
 	h.Add("Cache-Control", "no-store")
 
