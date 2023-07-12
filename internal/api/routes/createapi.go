@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/arthurweinmann/apinator/internal/config"
@@ -33,6 +34,13 @@ var upgrader = websocket.Upgrader{
 	HandshakeTimeout: 5 * time.Second,
 	Error: func(w http.ResponseWriter, r *http.Request, status int, reason error) {
 		utils.SendError(w, reason.Error(), "websocketProtocol", status)
+	},
+	CheckOrigin: func(r *http.Request) bool {
+		if strings.Contains(r.Header.Get("origin"), config.APIDomain) {
+			return true
+		}
+		fmt.Println("invalid origin", r.Header.Get("origin"))
+		return false
 	},
 }
 

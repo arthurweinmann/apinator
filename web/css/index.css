@@ -156,7 +156,7 @@ button:hover {
     width: 200px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 880px) {
     .header-container .mascot {
         position: absolute;
         width: 150px;
@@ -270,6 +270,12 @@ button:hover {
     text-align: left;
     background-color: #252526;
     box-sizing: border-box;
+}
+
+@media (max-width: 880px) {
+    .codeEditor {
+        width: 100%;
+    }
 }
 
 .filesystem {
