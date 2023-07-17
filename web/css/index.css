@@ -1,8 +1,18 @@
+@font-face {
+    font-family: "ComicMono";
+    src: url(/assets/fonts/ComicMono.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "ComicMono-Bold";
+    src: url(/assets/fonts/ComicMono-Bold.ttf) format("truetype");
+}
+
 html,
 body {
     width: 100%;
     height: 100%;
-    font-family: Open Sans, Roboto, sans-serif;
+    font-family: "ComicMono";
 }
 
 .signinpopup {
@@ -179,6 +189,7 @@ button:hover {
     font-size: 2em;
     font-weight: bold;
     line-height: 1.2;
+    font-family: "ComicMono-Bold";
 }
 
 .header-container .header2 {
@@ -194,6 +205,7 @@ button:hover {
     color: white;
     font-size: 1.125em;
     line-height: 1.5;
+    font-family: "ComicMono-Bold";
 }
 
 .question-padder {
